@@ -1,5 +1,6 @@
 package org.launchcode.techjobs.console;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.CaseInsensitiveMap;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -8,6 +9,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,8 +94,13 @@ public class JobData {
 
         for (HashMap<String, String> row : allJobs) {
 
-            if (row.values().contains(value)) {
-                jobs.add(row);
+            for (String item : row.values()) {
+                if (item.toLowerCase().contains(value.toLowerCase())) {
+                    if (!jobs.contains(row)){
+                        jobs.add(row);
+                    }
+
+                }
             }
         }
 
